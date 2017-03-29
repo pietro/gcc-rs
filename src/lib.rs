@@ -574,7 +574,9 @@ impl Config {
         // Target flags
         match cmd.family {
             ToolFamily::Clang => {
-                cmd.args.push(format!("--target={}", target).into());
+                if !target.ends_with("-linux-androideabi") {
+                    cmd.args.push(format!("--target={}", target).into());
+                }
             }
             ToolFamily::Msvc => {
                 if target.contains("i586") {
